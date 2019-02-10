@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+
+<?php
+
+$autoloadPath1 = __DIR__ . '/../../../autoload.php';
+$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
+if (file_exists($autoloadPath1)) {
+    require_once $autoloadPath1;
+} else {
+    require_once $autoloadPath2;
+}
+$options = getopt('',["city:", "service:", "apikey:"]);
+print_r($options);
+$city = $options['city'];
+$serviceName = $options['service'];
+$apiKey = $options['apikey'];
+$service = null;
+try {
+    if (!$serviceName != '')
+    {
+        $serviceNameClass = "Php\Package\Services\\" . $serviceName . "Api";
+        $service = new $serviceNameClass($apiKey);
+    }
+    $weather = new \Php\Package\WeatherService($service);
+    $weatherInfo = $weather->getWeatherForCity($city);
+    echo $weatherInfo->getCurrentTemp();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
