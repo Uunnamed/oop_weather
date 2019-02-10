@@ -17,7 +17,7 @@ class OpenWeatherApi extends BaseApi
 
     public function getWeatherForCity($city)
     {
-        $data = json_decode($this->client->getData(self::API_URL . "?APPID=" . $this->apiKey . "&q=" . urlencode($city)));
+        $data = json_decode($this->client->getData(self::API_URL . "?APPID=" . $this->apiKey . "&q=" . $city));
         return $this->prepareDataForWeatherService($data);
     }
 
