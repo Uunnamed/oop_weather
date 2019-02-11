@@ -6,9 +6,7 @@
      * Time: 11:19
      */
 
-namespace Php\Package\services;
-
-use Php\Package\WeatherInfo;
+namespace Php\Package\Services;
 
 class OpenWeatherApi extends BaseApi
 {
@@ -18,14 +16,13 @@ class OpenWeatherApi extends BaseApi
     public function getWeatherForCity($city)
     {
         $data = json_decode($this->client->getData(self::API_URL . "?APPID=" . $this->apiKey . "&q=" . $city));
-        return $this->prepareDataForWeatherService($data);
+        return $this->parseData($data);
     }
 
-    private function prepareDataForWeatherService($data)
+    private function parseData($data)
     {
-        $preparedData = (object) [];
-        $preparedData->currentT = $data->main->temp - 273.15;
-        return $preparedData;
+        $currentTemp = $data->main->temp - 273.15;
+        return ['currentT' => $currentTemp];
     }
 
 }

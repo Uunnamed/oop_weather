@@ -11,15 +11,12 @@ namespace Php\Package;
 
 class WeatherInfo
 {
-    private $minT;
-    private $maxT;
+
     private $currentT;
-    private $date;
-    private $windSpeed;
 
     public function __construct($data)
     {
-        $this->currentT = $data->currentT;
+        $this->currentT = $data['currentT'];
     }
 
     public function getCurrentTemp()

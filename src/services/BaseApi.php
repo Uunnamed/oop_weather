@@ -12,7 +12,7 @@ class BaseApi
 {
     protected $client;
     protected $apiKey;
-    public function __construct($apiKey='', $client = null)
+    public function __construct($apiKey = '', $client = null)
     {
         $this->apiKey = $apiKey;
         $this->client = $client ?? new CustomClient();

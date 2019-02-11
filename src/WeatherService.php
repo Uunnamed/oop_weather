@@ -12,10 +12,11 @@ use Php\Package\services\MetaWeatherApi;
 
 class WeatherService
 {
-    protected $service;
-    public function __construct($service = null)
+    private $service;
+    public function __construct($service = null, $options = [])
     {
-        $this->service = $service ?? new MetaWeatherApi();
+        $apiKey = isset($options['apiKey']) ? $options['apiKey'] : '';
+        $this->service = $service ?? new MetaWeatherApi($apiKey);
     }
 
     public function getWeatherForCity($city)

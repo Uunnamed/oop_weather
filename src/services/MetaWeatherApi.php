@@ -6,7 +6,7 @@
      * Time: 15:55
      */
 
-namespace Php\Package\services;
+namespace Php\Package\Services;
 
 
 class MetaWeatherApi extends BaseApi
@@ -17,7 +17,7 @@ class MetaWeatherApi extends BaseApi
     public function getWeatherForCity($city)
     {
         $data = json_decode($this->client->getData(self::API_GETWEATHER_URL . urlencode($this->getCityId($city))));
-        return $this->prepareDataForWeatherService($data);
+        return $this->parseData($data);
     }
 
     private function getCityId($city)
@@ -25,10 +25,9 @@ class MetaWeatherApi extends BaseApi
         return json_decode($this->client->getData(self::API_SEARCH_CITYID_URL . $city))[0]->woeid;
     }
 
-    private function prepareDataForWeatherService($data)
+    private function parseData($data)
     {
-        $preparedData = (object) [];
-        $preparedData->currentT = $data->consolidated_weather[0]->the_temp;
-        return $preparedData;
+        $currentTemp = $data->consolidated_weather[0]->the_temp;
+        return ['currentT' => $currentTemp];
     }
 }

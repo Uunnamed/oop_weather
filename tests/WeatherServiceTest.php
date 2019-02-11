@@ -2,7 +2,6 @@
 
 namespace Php\Package\Tests;
 
-use Php\Package\services\CustomClient;
 use Php\Package\services\MetaWeatherApi;
 use Php\Package\services\OpenWeatherApi;
 use Php\Package\WeatherService;
